@@ -1,8 +1,8 @@
 #' List Institutions
 #'
-#' This function uses the \code{ListInstitutions} method from the database API
-#' and returns a list of institutions and associated metadata, including the
-#' UKPRN.
+#' DEPRECATED - USE ref_get. This function uses the \code{ListInstitutions}
+#' method from the database API and returns a list of institutions and
+#' associated metadata, including the UKPRN.
 #'
 #' @return Returns a data_frame (from the \code{tibble} package).
 #'
@@ -13,6 +13,7 @@
 #'
 #' @export
 get_institutions <- function() {
+  .Deprecated("ref_get")
 
   ##### Call the API #####
   query_url <- "http://impact.ref.ac.uk/casestudiesapi/REFAPI.svc/ListInstitutions"

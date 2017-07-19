@@ -1,8 +1,9 @@
 #' Search and download case studies
 #'
-#' This function uses the \code{SearchCaseStudies} method from the database API.
-#' The method requires at least one filtering parameter, which means you need to
-#' provide at least one argument to this function.
+#' DEPRECATED - USE ref_get. This function uses the \code{SearchCaseStudies}
+#' method from the database API. The method requires at least one filtering
+#' parameter, which means you need to provide at least one argument to this
+#' function.
 #'
 #' This function returns a data_frame (from the \code{tibble} package) as it
 #' deals nicely with the nested data structures provided by the API. See the
@@ -36,8 +37,9 @@ get_case_studies <- function(ID = NULL,
                              UoA = NULL,
                              tags = NULL,
                              phrase = NULL) {
+  .Deprecated("ref_get")
 
-##### Check inputs #####
+  ##### Check inputs #####
 
   check_inputs_get_case_studies(ID, UKPRN, UoA, tags, phrase)
 
@@ -46,7 +48,7 @@ get_case_studies <- function(ID = NULL,
     UKPRN = NULL; UoA = NULL; tags = NULL; phrase = NULL
   }
 
-##### Build Query #####
+  ##### Build Query #####
 
   base_url <- "http://impact.ref.ac.uk/casestudiesapi/REFAPI.svc/SearchCaseStudies"
 
@@ -61,14 +63,14 @@ get_case_studies <- function(ID = NULL,
 
   query_url <- base_url
   for (i in seq_along(arg_list)) {
-      filter_url <- paste0(ifelse(i==1,"?","&"),
-                           names(arg_list)[[i]],
-                           "=",
-                           paste0(arg_list[[i]], collapse=","))
-      query_url <- paste0(query_url,filter_url)
+    filter_url <- paste0(ifelse(i==1,"?","&"),
+                         names(arg_list)[[i]],
+                         "=",
+                         paste0(arg_list[[i]], collapse=","))
+    query_url <- paste0(query_url,filter_url)
   }
 
-##### Call the API #####
+  ##### Call the API #####
   tmp <- tibble::as_data_frame(jsonlite::fromJSON(query_url))
 
   return(tmp)
@@ -79,10 +81,10 @@ get_case_studies <- function(ID = NULL,
 
 # Private function (not exported)
 check_inputs_get_case_studies <- function(ID = NULL,
-                                   UKPRN = NULL,
-                                   UoA = NULL,
-                                   tags = NULL,
-                                   phrase = NULL) {
+                                          UKPRN = NULL,
+                                          UoA = NULL,
+                                          tags = NULL,
+                                          phrase = NULL) {
 
   if (all(is.null(ID), is.null(UKPRN), is.null(UoA), is.null(tags), is.null(phrase))) {
     stop("You must provide at least one filter argument.")

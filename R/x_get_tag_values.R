@@ -1,7 +1,8 @@
 #' List Tag Values
 #'
-#' This function uses the \code{ListTagValues} method from the database API and
-#' returns a list of Tag Values for the supplied tag type.
+#' DEPRECATED - USE ref_get. This function uses the \code{ListTagValues} method
+#' from the database API and returns a list of Tag Values for the supplied tag
+#' type.
 #'
 #' @param tag_type numeric, a valid tag type ID. Use \code{get_tag_types()} to find valid
 #'   tag types.
@@ -15,6 +16,7 @@
 #'
 #' @export
 get_tag_values <- function(tag_type) {
+  .Deprecated("ref_get")
 
   ##### Check values #####
   if (class(tag_type) != "numeric") {
